@@ -28,7 +28,7 @@ export default function RemoveAction( { email, actionAt, id , postId}: RemoveAct
     queryKey: ["session"],
   })
 
-  const [showDelete, setShowDelete] = useState(false)
+  const [showDelete, setShowDelete] = useState(true)
   const [isDisabled, setIsDisabled] = useState(false)
 
   if (error){
