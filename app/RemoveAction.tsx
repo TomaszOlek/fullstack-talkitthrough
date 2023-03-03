@@ -47,12 +47,13 @@ export default function RemoveAction( { email, actionAt, id , postId}: RemoveAct
         &&
         <div 
           className="actions-remove"
+          onClick={()=>{setShowDelete((prev: boolean)=>!prev)}}
         >
           <Icon 
             icon="uil:trash-alt" 
             className="icon" 
-            onClick={() => setShowDelete(true)}
           />
+          <p>Delete</p>
         </div>
       }
       {showDelete && 

@@ -339,7 +339,14 @@
   width: 21px;
   height: 21px;
 }
+.actions-remove > p {
+  color: #ff0000;
+  font-weight: 700;
+}
 .actions-remove:hover > svg {
+  color: #9b0202;
+}
+.actions-remove:hover > p {
   color: #9b0202;
 }
 

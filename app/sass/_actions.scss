@@ -45,9 +45,16 @@
       width: 21px;
       height: 21px;
     }
+    &>p{
+      color: $trash_color;
+      font-weight: 700;
+    }
 
     &:hover{
       & > svg{
+        color: $trash_color-hover;
+      }
+      & > p{
         color: $trash_color-hover;
       }
     }
