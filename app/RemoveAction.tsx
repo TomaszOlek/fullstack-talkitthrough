@@ -57,8 +57,7 @@ export default function RemoveAction( { email, actionAt, id , postId}: RemoveAct
         </div>
       }
       {showDelete && 
-        <>Bla Blaaa Blaa ...</>
-        // <DeleteWindow setIsDisabled={setIsDisabled} setShowDelete={setShowDelete} actionAt={actionAt} id={id} postId={postId}/>
+        <DeleteWindow setIsDisabled={setIsDisabled} setShowDelete={setShowDelete} actionAt={actionAt} id={id} postId={postId}/>
       }
     </div>
   )

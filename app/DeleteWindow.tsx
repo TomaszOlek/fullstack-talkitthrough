@@ -31,7 +31,6 @@ export default function DeleteWindow({setIsDisabled, setShowDelete, actionAt, id
         if (error instanceof AxiosError) {
           console.error(error)
           toast.error(`Error while deleting ${actionAt}.`, { id: removeAction })
-          console.log("test")
           setIsDisabled(false)
         }
       },
@@ -42,7 +41,6 @@ export default function DeleteWindow({setIsDisabled, setShowDelete, actionAt, id
         }else{
           queryClient.invalidateQueries(["posts"])
         }
-        console.log("test")
         setIsDisabled(false)
         toast.success(`${capitalize(actionAt)} delited correctly.`, { id: removeAction })
       },
@@ -51,7 +49,7 @@ export default function DeleteWindow({setIsDisabled, setShowDelete, actionAt, id
   const handelDelete = async () => {
     console.log("test")
     setIsDisabled(true)
-    setShowDelete((prev: boolean)=>(!prev))
+    setShowDelete(false)
     removeAction = toast.loading(`Deliting your ${actionAt}.`, { id: removeAction })
     mutate(id)
   }
@@ -59,7 +57,7 @@ export default function DeleteWindow({setIsDisabled, setShowDelete, actionAt, id
   return (
     <div 
       className="delete_window"
-      onClick={() => setShowDelete((prev: Boolean)=> !prev)}
+      onClick={() => setShowDelete(false)}
     >
       <div className="delete_window-notification">
         <h2>Delete {actionAt}</h2>
@@ -67,7 +65,7 @@ export default function DeleteWindow({setIsDisabled, setShowDelete, actionAt, id
         <div style={{display: "flex", justifyContent: "space-around"}}>
           <button 
             className="delete_window-notification-cancel_button"
-            onClick={setShowDelete((prev: Boolean)=> !prev)}
+            onClick={setShowDelete(false)}
           > No, Cancel
           </button>
           <button 
