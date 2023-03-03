@@ -45,6 +45,8 @@ export default function RemoveAction( { email, actionAt, id , postId}: RemoveAct
     console.log(showDelete)
   }
 
+  console.log(showDelete)
+
   return (
     <div 
       style={{alignSelf: "center"}}
