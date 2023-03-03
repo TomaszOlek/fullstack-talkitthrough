@@ -47,7 +47,7 @@ export default function RemoveAction( { email, actionAt, id , postId}: RemoveAct
         &&
         <div 
           className="actions-remove"
-          onClick={()=>{setShowDelete((prev: boolean)=>!prev)}}
+          onClick={()=>{console.log("123")}}
         >
           <Icon 
             icon="uil:trash-alt" 
@@ -55,6 +55,17 @@ export default function RemoveAction( { email, actionAt, id , postId}: RemoveAct
           />
           <p>Delete</p>
         </div>
+        //setShowDelete((prev: boolean)=>!prev)
+        // <div 
+        //   className="actions-reply"
+        //   onClick={()=>{setShowReply((prev: boolean)=>!prev)}}
+        // >
+        //   <Icon 
+        //     icon="fa6-solid:reply" 
+        //     className="icon" 
+        //   />
+        //   <p>Reply</p>
+        // </div>
       }
       {showDelete && 
         <DeleteWindow setIsDisabled={setIsDisabled} setShowDelete={setShowDelete} actionAt={actionAt} id={id} postId={postId}/>
