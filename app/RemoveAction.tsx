@@ -39,6 +39,11 @@ export default function RemoveAction( { email, actionAt, id , postId}: RemoveAct
     return <></>
   }
 
+  const handelClick = () => {
+    console.log("test")
+    setShowDelete((prev: boolean)=>!prev)
+  }
+
   return (
     <div 
       style={{alignSelf: "center"}}
@@ -47,7 +52,7 @@ export default function RemoveAction( { email, actionAt, id , postId}: RemoveAct
         &&
         <div 
           className="actions-remove"
-          onClick={()=>{console.log("123")}}
+          onClick={handelClick}
         >
           <Icon 
             icon="uil:trash-alt" 
