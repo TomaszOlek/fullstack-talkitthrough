@@ -31,6 +31,7 @@ export default function DeleteWindow({setIsDisabled, setShowDelete, actionAt, id
         if (error instanceof AxiosError) {
           console.error(error)
           toast.error(`Error while deleting ${actionAt}.`, { id: removeAction })
+          console.log("test")
           setIsDisabled(false)
         }
       },
@@ -41,12 +42,14 @@ export default function DeleteWindow({setIsDisabled, setShowDelete, actionAt, id
         }else{
           queryClient.invalidateQueries(["posts"])
         }
+        console.log("test")
         setIsDisabled(false)
         toast.success(`${capitalize(actionAt)} delited correctly.`, { id: removeAction })
       },
     }
   )
   const handelDelete = async () => {
+    console.log("test")
     setIsDisabled(true)
     setShowDelete((prev: boolean)=>(!prev))
     removeAction = toast.loading(`Deliting your ${actionAt}.`, { id: removeAction })
