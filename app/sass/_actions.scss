@@ -1,0 +1,55 @@
+@import 'var';
+
+.actions{
+  display: flex;
+  margin-left: auto;
+
+  &-reply{
+    cursor: pointer;
+    margin-right: 15px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    &>p{
+      color: $reply_color;
+      font-weight: 700;
+    }
+    & > svg{
+      color: $reply_color;
+    }
+
+    &:hover{
+      & > p{
+        color: $reply_color-hover;
+      }
+      & > svg{
+        color: $reply_color-hover;
+      }
+    }
+  }
+
+  &-remove{
+    cursor: pointer;
+    margin-right: 15px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    & > svg{
+      color: $trash_color;
+      width: 21px;
+      height: 21px;
+    }
+
+    &:hover{
+      & > svg{
+        color: $trash_color-hover;
+      }
+    }
+  }
+}

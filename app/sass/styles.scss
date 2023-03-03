@@ -1,0 +1,25 @@
+@import 'delete_window';
+@import 'navigation';
+@import 'reputation';
+@import 'addpost';
+@import 'loaders';
+@import 'comment';
+@import 'actions';
+@import 'post';
+@import 'var';
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: $primary-color;
+  background-color: rgb(226 232 240);
+}
+
+.color{
+  &-red{
+    color: $trash_color
+  }
+  &-gray{
+    color: $primary-gray
+  }
+}
+

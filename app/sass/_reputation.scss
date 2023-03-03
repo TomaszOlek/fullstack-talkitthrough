@@ -1,0 +1,51 @@
+@import 'var';
+
+$icons-size: 20px;
+
+.reputation{
+  width: 55px;
+  height: 110px;
+  background-color: $white-secondary;
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+
+  p{
+    margin: 0;
+  }
+
+  &-icon{
+    &-plus{
+      color: $reaction_plus;
+      filter:drop-shadow(0px 0px 4px $reaction_plus)
+    }
+    &-minus{
+      color: $reaction_minus;
+      filter:drop-shadow(0px 0px 4px $reaction_minus)
+    }
+  }
+
+  &-plus{
+    width: $icons-size;
+    height: $icons-size;
+    transition: transform 0.3s ease;
+
+    &:hover{
+      transform: scale(1.4);
+    }
+  }
+
+  &-minus{
+    width: $icons-size;
+    height: $icons-size;
+    transition: transform 0.3s ease;
+
+    &:hover{
+      transform: scale(1.4);
+    }
+  }
+}
