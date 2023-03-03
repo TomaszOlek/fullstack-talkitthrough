@@ -55,7 +55,7 @@ export default function RemoveAction( { email, actionAt, id , postId}: RemoveAct
         &&
         <div 
           className="actions-remove"
-          onClick={handelClick}
+          onClick={() =>handelClick()}
         >
           <Icon 
             icon="uil:trash-alt" 
