@@ -28,7 +28,7 @@ export default function RemoveAction( { email, actionAt, id , postId}: RemoveAct
     queryKey: ["session"],
   })
 
-  const [showDelete, setShowDelete] = useState(true)
+  const [showDelete, setShowDelete] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
 
   if (error){
@@ -39,14 +39,6 @@ export default function RemoveAction( { email, actionAt, id , postId}: RemoveAct
     return <></>
   }
 
-  const handelClick = () => {
-    console.log("test")
-    setShowDelete(true)
-    console.log(showDelete)
-  }
-
-  console.log(showDelete)
-
   return (
     <div 
       style={{alignSelf: "center"}}
@@ -55,7 +47,7 @@ export default function RemoveAction( { email, actionAt, id , postId}: RemoveAct
         &&
         <div 
           className="actions-remove"
-          onClick={() =>handelClick()}
+          onClick={()=>{setShowDelete((prev: boolean)=>!prev)}}
         >
           <Icon 
             icon="uil:trash-alt" 
@@ -63,17 +55,6 @@ export default function RemoveAction( { email, actionAt, id , postId}: RemoveAct
           />
           <p>Delete</p>
         </div>
-        //setShowDelete((prev: boolean)=>!prev)
-        // <div 
-        //   className="actions-reply"
-        //   onClick={()=>{setShowReply((prev: boolean)=>!prev)}}
-        // >
-        //   <Icon 
-        //     icon="fa6-solid:reply" 
-        //     className="icon" 
-        //   />
-        //   <p>Reply</p>
-        // </div>
       }
       {showDelete && 
         <>Bla Blaaa Blaa ...</>
