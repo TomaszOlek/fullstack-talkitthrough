@@ -42,6 +42,7 @@ export default function RemoveAction( { email, actionAt, id , postId}: RemoveAct
   const handelClick = () => {
     console.log("test")
     setShowDelete((prev: boolean)=>!prev)
+    console.log(showDelete)
   }
 
   return (
