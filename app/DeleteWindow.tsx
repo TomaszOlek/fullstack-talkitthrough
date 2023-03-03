@@ -65,7 +65,7 @@ export default function DeleteWindow({setIsDisabled, setShowDelete, actionAt, id
         <div style={{display: "flex", justifyContent: "space-around"}}>
           <button 
             className="delete_window-notification-cancel_button"
-            onClick={setShowDelete(false)}
+            onClick={() => setShowDelete(false)}
           > No, Cancel
           </button>
           <button 
