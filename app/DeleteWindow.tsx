@@ -47,7 +47,6 @@ export default function DeleteWindow({setIsDisabled, setShowDelete, actionAt, id
     }
   )
   const handelDelete = async () => {
-    console.log("test")
     setIsDisabled(true)
     setShowDelete(false)
     removeAction = toast.loading(`Deliting your ${actionAt}.`, { id: removeAction })
