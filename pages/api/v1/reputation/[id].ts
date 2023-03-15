@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import prisma from "../../../prisma/client"
+import prisma from "../../../../prisma/client"
 
 import { getServerSession } from "next-auth/next"
-import { authOptions } from "../auth/[...nextauth]"
+import { authOptions } from "../../auth/[...nextauth]"
 
 
 type ReputationEl = {
@@ -26,22 +26,14 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     const session = await getServerSession(req, res, authOptions)
-
-    if (!req.query.getReputation) {
+    if (!req.query.type && !req.query.id) {
       return res.status(400).json({ error: "Invalid request" })
     }
 
-
-    //Get Reputation
-    try {
-      const getReputation = req.query.getReputation
-      let type, id
-      
-      if (Array.isArray(getReputation)) {
-        [type, id] = getReputation[0].split("|")
-      } else {
-        [type, id] = getReputation.split("|")
-      }
+    try { //Get Reputation
+      const type = req.query.type
+      const id = req.query.id
+  
       const reputation = await prisma.reaction.findMany({
         where: {
           [type === 'post' ? 'postId' : 'commentId']:  id,
@@ -72,7 +64,7 @@ export default async function handler(
 
       const respones = {
         totalRep,
-        reaction: reaction,
+        userReaction: reaction,
       }
 
       return res.status(200).json(respones)

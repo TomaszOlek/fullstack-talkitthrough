@@ -8,23 +8,39 @@ import { useState, useEffect } from 'react';
 
 
 type Reputation ={
-  type: string
-  reputatuonId: string //id of the post of comment
+  type: "comment" | "post"
+  reputatuonId: string
+  reactions: {
+    id: string
+    type: string
+    user: {
+      name: string
+      image: string
+      email: string
+    }
+  }[]
+  userSection: {
+    user?: {
+      email: string;
+      image: string;
+      name: string;
+    };
+  };
 }
 
-const getReputatuon = async (reputatuonId: string, type: string) => {
-  const response = await axios.get(`/api/reputation/${type}|${reputatuonId}`)
+const getReputatuon = async (type: string, reputatuonId: string) => {
+  const response = await axios.get(`/api/v1/reputation/${reputatuonId}?type=${type}`)
   return response.data
 }
 
-export default function Reputation({type, reputatuonId}: Reputation) {
+export default function Reputation({type, reputatuonId, reactions, userSection}: Reputation) {
   const queryClient = useQueryClient()
-  const [reaction, setReaction] = useState("")
+  const [userReaction, setUserReaction] = useState<string | undefined>("");
   const [reputation, setReputation] = useState(0)
 
   const { mutate } = useMutation(
     async ({ voteType }: { voteType: string }) =>
-      await axios.post("/api/reputation/setReputation", {
+      await axios.post("/api/v1/reputation", {
         data: {
           entityType: type,
           entityId: reputatuonId,
@@ -33,8 +49,7 @@ export default function Reputation({type, reputatuonId}: Reputation) {
       }),
     {
       onError: (error) => {
-        if (error instanceof AxiosError) {
-        }
+        console.error(error)
       },
       onSuccess: (data) => {
         queryClient.invalidateQueries([`Rep${reputatuonId}`])
@@ -43,18 +58,24 @@ export default function Reputation({type, reputatuonId}: Reputation) {
   );
 
   const { data, error, isLoading } = useQuery({
-    queryFn: () => getReputatuon(reputatuonId, type),
+    queryFn: () => getReputatuon(type, reputatuonId),
     queryKey: [`Rep${reputatuonId}`],
   })
-
   if (error){
     console.error(error)
   }
 
   useEffect(() => {
     if (data) {
-      setReaction(data.reaction)
+      setUserReaction(data.userReaction)
       setReputation(data.totalRep)
+    }else{
+      if (reactions.length > 0 && userSection.user?.email !== undefined) {
+        setUserReaction(
+          reactions.find((post) => post.user?.email === userSection.user?.email)?.type
+        );
+      }
+      setReputation(reactions.length);
     }
   }, [data])
 
@@ -62,19 +83,19 @@ export default function Reputation({type, reputatuonId}: Reputation) {
     mutate({ voteType });
 
     if (
-      (voteType === "plus" && reaction === "plus") ||
-      (voteType === "minus" && reaction === "minus")
+      (voteType === "plus" && userReaction === "plus") ||
+      (voteType === "minus" && userReaction === "minus")
     ) {
-      setReaction("");
+      setUserReaction("");
       setReputation((prev) => prev + (voteType === "plus" ? -1 : 1));
     } else if (
-      (voteType === "plus" && reaction === "minus") ||
-      (voteType === "minus" && reaction === "plus")
+      (voteType === "plus" && userReaction === "minus") ||
+      (voteType === "minus" && userReaction === "plus")
     ) {
-      setReaction(voteType);
+      setUserReaction(voteType);
       setReputation((prev) => prev + (voteType === "plus" ? 2 : -2));
     } else {
-      setReaction(voteType);
+      setUserReaction(voteType);
       setReputation((prev) => prev + (voteType === "plus" ? 1 : -1));
     }
   }
@@ -83,13 +104,13 @@ export default function Reputation({type, reputatuonId}: Reputation) {
     <div className="reputation">
       <Icon 
         icon="ic:round-plus" 
-        className={`reputation-plus ${reaction === "plus" && "reputation-icon-plus"}`}  
+        className={`reputation-plus ${userReaction === "plus" && "reputation-icon-plus"}`}  
         onClick={() => handelReputation("plus")}
       />
       <p>{reputation}</p>
       <Icon 
         icon="ic:round-minus" 
-        className={`reputation-minus ${reaction === "minus" && "reputation-icon-minus"}`} 
+        className={`reputation-minus ${userReaction === "minus" && "reputation-icon-minus"}`} 
         onClick={() => handelReputation("minus")}
       />
     </div>

@@ -14,7 +14,7 @@ export default function CreatePost() {
   //Create a post
   const { mutate } = useMutation(
     async (title: string) =>
-      await axios.post("/api/posts/addPost", {
+      await axios.post("/api/v1/posts", {
         title,
       }),
     {

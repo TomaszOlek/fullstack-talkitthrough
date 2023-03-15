@@ -1,21 +1,41 @@
 export type PostsType = {
-  title: string
-  id: string
-  createdAt?: string
+  id: string;
+  title: string;
+  createdAt?: string;
   comments?: {
-    createdAt: string
-    id: string
-    postId: string
-    userId: string
-  }[]
+    createdAt?: string;
+    id: string;
+    postId: string;
+    title: string;
+    userId: string;
+    user: {
+        email: string;
+        id: string;
+        image: string;
+        name: string;
+    };
+    reactions: {
+      id: string;
+      type: string;
+      user: {
+        name: string;
+        image: string;
+        email: string;
+      };
+    }[];
+  }[];
   user: {
-    name: string
-    image: string
-    email: string
-  }
+    name: string;
+    image: string;
+    email: string;
+  };
   reactions: {
-    id: string
-    type: string
-    userId: string
-  }[]
+    id: string;
+    type: string;
+    user: {
+      name: string;
+      image: string;
+      email: string;
+    };
+  }[];
 }

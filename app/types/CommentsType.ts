@@ -7,4 +7,13 @@ export type CommentsType = {
     image: string
     email: string
   }
+  reactions: {
+    id: string;
+    type: string;
+    user: {
+      name: string;
+      image: string;
+      email: string;
+    }
+  }[]
 }

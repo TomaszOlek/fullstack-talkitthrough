@@ -7,22 +7,51 @@ import { motion } from "framer-motion"
 import toast from "react-hot-toast"
 import Comments from "./Comments"
 
-type Comment = {
-  postId: string
-  showReply: boolean
-  avatar: string
-  setShowReply: Function 
+interface Comment {
+  postId: string;
+  showReply: boolean;
+  avatar: string;
+  setShowReply: Function;
+  comments?: {
+    createdAt?: string;
+    id: string;
+    postId: string;
+    title: string;
+    userId: string;
+    user: {
+        email: string;
+        id: string;
+        image: string;
+        name: string;
+    };
+    reactions: {
+      id: string;
+      type: string;
+      user: {
+        name: string;
+        image: string;
+        email: string;
+      }
+    }[]
+  }[];
+  userSection: {
+    user?: {
+      email: string;
+      image: string;
+      name: string;
+    };
+  };
 }
 
 
-export default function UnderPost({postId, showReply, avatar, setShowReply}:Comment) {
+export default function UnderPost({postId, showReply, avatar, setShowReply, comments=[], userSection}:Comment) {
 
   const { mutate } = useMutation(
     async (data: {
       postId: string
       comment: string
     }) => {
-      return axios.post("/api/comments/addComment", { data })
+      return axios.post("/api/v1/comments", { data })
     },
     {
       onSuccess: (data) => {
@@ -65,7 +94,7 @@ export default function UnderPost({postId, showReply, avatar, setShowReply}:Comm
       initial={{ opacity: 0, scale: 0.8 }}
       transition={{ ease: "easeOut" }}
     >
-        <Comments postId={postId}/>
+        <Comments postId={postId} comments={comments} userSection={userSection}/>
 
         {showReply &&
           <form onSubmit={submitComment} className="post-comments-replay">

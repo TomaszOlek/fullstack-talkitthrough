@@ -1,4 +1,4 @@
-import prisma from "../../../prisma/client"
+import prisma from "../../../../prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 export default async function handler(
@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     try {
-      const postId = req.query.getComments as string;
+      const postId = req.query.postId as string;
       const comments = await prisma.comment.findMany({
         where: {
           postId: postId,
