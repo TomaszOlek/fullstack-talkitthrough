@@ -23,7 +23,7 @@ export default function DeleteWindow({setIsDisabled, setShowDelete, actionAt, id
 
   const { mutate } = useMutation(
     async (id: string) =>
-      await axios.delete(`/api/${actionAt}s/delete${capitalize(actionAt)}`, {
+      await axios.delete(`/api/v1/${actionAt}s`, {
         data: id,
       }),
     {
