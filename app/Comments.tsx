@@ -50,7 +50,7 @@ interface Comments {
 export default function Comments({postId, comments, userSection}: Comments) {
   const [commnetsData, setCommentsData]= useState<CommentsType[]>([])
 
-  const { data, error, isLoading } = useQuery<CommentsType[]>({
+  const { data, error, } = useQuery<CommentsType[]>({
     queryFn: () => allComments(postId),
     queryKey: [postId],
   })
@@ -62,9 +62,11 @@ export default function Comments({postId, comments, userSection}: Comments) {
 
   useEffect(()=>{
     if (data){
+      console.log("data", data)
       setCommentsData(data)
+    }else{
+      setCommentsData(comments)
     }
-    setCommentsData(comments)
   }, [data])
 
   return (

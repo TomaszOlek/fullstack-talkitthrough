@@ -39,7 +39,7 @@ export default function DeleteWindow({setIsDisabled, setShowDelete, actionAt, id
         if(actionAt === "comment"){
           queryClient.invalidateQueries([postId])
         }else{
-          queryClient.invalidateQueries(["posts"])
+          queryClient.invalidateQueries(["allposts"])
         }
         setIsDisabled(false)
         toast.success(`${capitalize(actionAt)} delited correctly.`, { id: removeAction })

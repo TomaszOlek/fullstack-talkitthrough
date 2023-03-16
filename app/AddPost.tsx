@@ -26,7 +26,7 @@ export default function CreatePost() {
         setIsDisabled(false)
       },
       onSuccess: (data) => {
-        queryClient.invalidateQueries(["posts"]) //refech data
+        queryClient.invalidateQueries(["allposts"]) //refech data
         toast.success("Post has been made 🔥", { id: toastPostID })
         setTitle("")
         setIsDisabled(false)

@@ -14,6 +14,7 @@ export default async function handler(
         },
         include: {
           user: true,
+          reactions: true,
         },
       });
       return res.status(200).json(comments);
