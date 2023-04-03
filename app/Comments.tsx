@@ -1,18 +1,18 @@
-"use client"
-import axios from "axios"
-import Image from "next/image"
-import { useQuery } from "react-query"
-import { CommentsType } from "./types/CommentsType"
-import toast from "react-hot-toast"
+"use client";
+import axios from "axios";
+import Image from "next/image";
+import { useQuery } from "react-query";
+import { CommentsType } from "./types/CommentsType";
+import toast from "react-hot-toast";
 
-import RemoveAction from "./RemoveAction"
-import Reputation from "./Reputation"
-import { useEffect, useState } from "react"
+import RemoveAction from "./RemoveAction";
+import Reputation from "./Reputation";
+import { useEffect, useState } from "react";
 
 const allComments = async (postId: string) => {
-  const response = await axios.get(`/api/v1/comments/${postId}`)
-  return response.data
-}
+  const response = await axios.get(`/api/v1/comments/${postId}`);
+  return response.data;
+};
 
 interface Comments {
   postId: string;
@@ -23,10 +23,10 @@ interface Comments {
     title: string;
     userId: string;
     user: {
-        email: string;
-        id: string;
-        image: string;
-        name: string;
+      email: string;
+      id: string;
+      image: string;
+      name: string;
     };
     reactions: {
       id: string;
@@ -47,33 +47,37 @@ interface Comments {
   };
 }
 
-export default function Comments({postId, comments, userSection}: Comments) {
-  const [commnetsData, setCommentsData]= useState<CommentsType[]>([])
+export default function Comments({ postId, comments, userSection }: Comments) {
+  const [commnetsData, setCommentsData] = useState<CommentsType[]>([]);
 
-  const { data, error, } = useQuery<CommentsType[]>({
+  const { data, error } = useQuery<CommentsType[]>({
     queryFn: () => allComments(postId),
     queryKey: [postId],
-  })
+  });
   if (error) {
-    toast.error("Error while loading comments")
-    console.error(error)
-    return <></>
+    toast.error("Error while loading comments");
+    console.error(error);
+    return <></>;
   }
 
-  useEffect(()=>{
-    if (data){
-      console.log("data", data)
-      setCommentsData(data)
-    }else{
-      setCommentsData(comments)
+  useEffect(() => {
+    if (data) {
+      setCommentsData(data);
+    } else {
+      setCommentsData(comments);
     }
-  }, [data])
+  }, [data]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "10px"}}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
       {commnetsData?.map((comment) => (
         <div className="comment" key={comment.id}>
-          <Reputation type="comment" reputatuonId={comment.id} reactions={comment.reactions} userSection={userSection}/>
+          <Reputation
+            type="comment"
+            reputatuonId={comment.id}
+            reactions={comment.reactions}
+            userSection={userSection}
+          />
           <div>
             <div className="comment-header">
               <Image
@@ -85,7 +89,13 @@ export default function Comments({postId, comments, userSection}: Comments) {
               />
               <h3 className="comment-header__name">{comment.user.name}</h3>
               <div className="actions">
-                <RemoveAction email={comment.user.email} actionAt="comment" id={comment.id} postId={postId} userSection={userSection}/>
+                <RemoveAction
+                  email={comment.user.email}
+                  actionAt="comment"
+                  id={comment.id}
+                  postId={postId}
+                  userSection={userSection}
+                />
               </div>
             </div>
             <div className="comment-content">
@@ -95,5 +105,5 @@ export default function Comments({postId, comments, userSection}: Comments) {
         </div>
       ))}
     </div>
-  )
+  );
 }
